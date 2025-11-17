@@ -2,13 +2,28 @@ import { useActionState, useContext } from "react";
 import { useState } from "react";
 import { CartContext } from "../Store/cart-context";
 
-const Cart = ({ items, cartTotal, onAddItem, onSubtractItem, onClose }) => {
+const Cart = ({ onClose }) => {
   const [checkoutIsOpen, setCheckoutIsOpen] = useState(false);
   const [showSuccessState, setShowSuccessState] = useState(false);
-  const { submitOrder, emptyBasket } = useContext(CartContext);
+  const {
+    cartItems,
+    cartTotal,
+    subtractItemFromCart,
+    addItemToCart,
+    submitOrder,
+    emptyBasket,
+  } = useContext(CartContext);
 
   function handleOpenCheckout() {
     setCheckoutIsOpen(true);
+  }
+
+  function onAddItem(item) {
+    addItemToCart(item);
+  }
+
+  function onSubtractItem(item) {
+    subtractItemFromCart(item);
   }
 
   async function submitOrderAction(prevFormState, formData) {
@@ -49,7 +64,7 @@ const Cart = ({ items, cartTotal, onAddItem, onSubtractItem, onClose }) => {
             "postal-code": postcode,
             city,
           },
-          items: items,
+          items: cartItems,
         },
       });
       setShowSuccessState(true);
@@ -73,8 +88,8 @@ const Cart = ({ items, cartTotal, onAddItem, onSubtractItem, onClose }) => {
         <div className="cart">
           <h2>Your cart</h2>
           <ul>
-            {items.length === 0 && <p>Your cart is empty</p>}
-            {items.map((item) => (
+            {cartItems.length === 0 && <p>Your cart is empty</p>}
+            {cartItems.map((item) => (
               <li
                 key={item.id}
                 className="cart-item"

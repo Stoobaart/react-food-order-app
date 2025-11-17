@@ -74,12 +74,32 @@ export default function CartContextProvider({ children }) {
     setCartTotal(total);
   }
 
+  function handleEmptyBasket() {
+    localStorage.removeItem("cart-items");
+  }
+
+  async function submitOrder(orderData) {
+    const response = await fetch("http://localhost:3000/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to submit order");
+    }
+  }
+
   const ctxValue = {
     cartItems,
     cartQuantity,
     cartTotal,
     addItemToCart: handleAddItemToCart,
     subtractItemFromCart: handleSubtractItemFromCart,
+    emptyBasket: handleEmptyBasket,
+    submitOrder,
   };
   // CartContext.Provider would be needed for React version <19
   return <CartContext value={ctxValue}>{children}</CartContext>;

@@ -1,4 +1,37 @@
-const Meals = ({ meals, isLoading, onAddItem }) => {
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "../Store/cart-context";
+
+const Meals = ({ setErrorFetchingMeals }) => {
+  const [meals, setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { addItemToCart } = useContext(CartContext);
+
+  useEffect(() => {
+    async function getMeals() {
+      setIsLoading(true);
+      try {
+        const response = await fetch("http://localhost:3000/meals");
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch meals");
+        }
+
+        const meals = await response.json();
+        setMeals(meals);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        handleOnErrorFetchingMeals(error);
+      }
+    }
+    getMeals();
+  }, []);
+
+  function handleOnErrorFetchingMeals(error) {
+    setErrorFetchingMeals(error);
+  }
+
   return (
     <div id="meals">
       {isLoading && <p>Fetching meals...</p>}
@@ -19,7 +52,7 @@ const Meals = ({ meals, isLoading, onAddItem }) => {
             <div className="meal-item-actions">
               <button
                 className="button"
-                onClick={() => onAddItem(meal)}
+                onClick={() => addItemToCart(meal)}
               >
                 Add to cart
               </button>

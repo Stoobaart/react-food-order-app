@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import LOGO from "./assets/logo.jpg";
 import Meals from "./Components/Meals.jsx";
 import Modal from "./Components/Modal.jsx";
 import ErrorMessage from "./Components/Error.jsx";
 import Cart from "./Components/Cart.jsx";
 import { CartContext } from "./Store/cart-context.jsx";
+import Header from "./Components/Header.jsx";
 
 function App() {
   const [meals, setMeals] = useState([]);
@@ -69,21 +69,10 @@ function App() {
         ></Cart>
       </Modal>
       <main>
-        <div id="main-header">
-          <div id="title">
-            <img
-              src={LOGO}
-              alt="Food order app icon"
-            />
-            <h1>Food order app</h1>
-          </div>
-          <button
-            className="text-button"
-            onClick={() => setCartIsOpen(true)}
-          >
-            Cart ({cartQuantity})
-          </button>
-        </div>
+        <Header
+          cartQuantity={cartQuantity}
+          setCartIsOpen={setCartIsOpen}
+        />
         <Meals
           meals={meals}
           hasError={errorFetchingMeals}

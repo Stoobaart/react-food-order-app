@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
-import { CartContext } from "../Store/cart-context";
+import { CartContext } from "../Store/CartContext";
 import { useActionState } from "react";
+import Input from "../UI/Input";
 
 const Checkout = () => {
   const [showSuccessState, setShowSuccessState] = useState(false);
@@ -73,58 +74,31 @@ const Checkout = () => {
           className="cart-form"
         >
           <div className="control-row">
-            <p className="control">
-              <label htmlFor="name">Full Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required={true}
-                defaultValue={formState.enteredValues?.name}
-              />
-            </p>
+            <Input
+              label="name"
+              defaultValue={formState.enteredValues?.name}
+            />
 
-            <p className="control">
-              <label htmlFor="email">E-mail Address</label>
-              <input
-                type="text"
-                id="email"
-                name="email"
-                required={true}
-                defaultValue={formState.enteredValues?.email}
-              />
-            </p>
+            <Input
+              label="email"
+              defaultValue={formState.enteredValues?.email}
+            />
           </div>
-          <p className="control">
-            <label htmlFor="street">Street</label>
-            <input
-              type="text"
-              id="street"
-              name="street"
-              required={true}
-              defaultValue={formState.enteredValues?.street}
-            ></input>
-          </p>
-          <p className="control">
-            <label htmlFor="postal-code">Postal Code</label>
-            <input
-              type="text"
-              id="postal-code"
-              name="postal-code"
-              required={true}
-              defaultValue={formState.enteredValues?.["postal-code"]}
-            ></input>
-          </p>
-          <p className="control">
-            <label htmlFor="city">City</label>
-            <input
-              type="text"
-              id="city"
-              name="city"
-              required={true}
-              defaultValue={formState.enteredValues?.city}
-            ></input>
-          </p>
+
+          <Input
+            label="street"
+            defaultValue={formState.enteredValues?.street}
+          />
+
+          <Input
+            label="postal-code"
+            defaultValue={formState.enteredValues?.["postal-code"]}
+          />
+
+          <Input
+            label="city"
+            defaultValue={formState.enteredValues?.city}
+          />
 
           {formState.errors && (
             <ul className="errors">

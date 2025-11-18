@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import LOGO from "../assets/logo.jpg";
-import { CartContext } from "../Store/cart-context";
+import { CartContext } from "../Store/CartContext";
 
 const Header = ({ setCartIsOpen }) => {
   const { cartQuantity } = useContext(CartContext);

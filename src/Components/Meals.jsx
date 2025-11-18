@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { CartContext } from "../Store/cart-context";
+import { CartContext } from "../Store/CartContext";
 
 const Meals = ({ setErrorFetchingMeals }) => {
   const [meals, setMeals] = useState([]);
@@ -38,26 +38,30 @@ const Meals = ({ setErrorFetchingMeals }) => {
       {!isLoading &&
         meals.length > 0 &&
         meals.map((meal) => (
-          <div
+          <li
             key={meal.id}
-            className="meal-item article"
+            className="meal-item"
           >
-            <img
-              src={"http://localhost:3000/" + meal.image}
-              alt={`image for ${meal.name}`}
-            />
-            <h3>{meal.name}</h3>
-            <p className="meal-item-price">{meal.price}</p>
-            <p className="meal-item-description">{meal.description}</p>
-            <div className="meal-item-actions">
-              <button
-                className="button"
-                onClick={() => addItemToCart(meal)}
-              >
-                Add to cart
-              </button>
-            </div>
-          </div>
+            <article>
+              <img
+                src={"http://localhost:3000/" + meal.image}
+                alt={`image for ${meal.name}`}
+              />
+              <div>
+                <h3>{meal.name}</h3>
+                <p className="meal-item-price">{meal.price}</p>
+                <p className="meal-item-description">{meal.description}</p>
+              </div>
+              <div className="meal-item-actions">
+                <button
+                  className="button"
+                  onClick={() => addItemToCart(meal)}
+                >
+                  Add to cart
+                </button>
+              </div>
+            </article>
+          </li>
         ))}
     </div>
   );

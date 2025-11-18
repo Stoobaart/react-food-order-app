@@ -2,8 +2,8 @@ import { createContext, useEffect, useState } from "react";
 
 export const CartContext = createContext({
   items: [],
-  addItemToCart: () => {},
-  subtractItemFromCart: () => {},
+  addItemToCart: (item) => {},
+  subtractItemFromCart: (id) => {},
 });
 
 export default function CartContextProvider({ children }) {
@@ -53,14 +53,12 @@ export default function CartContextProvider({ children }) {
     setCartTotal(total);
   }
 
-  function handleSubtractItemFromCart(item) {
+  function handleSubtractItemFromCart(id) {
     let { updatedItems } = getCartItems();
-    const mealToAdjustQuantityOf = updatedItems.find(
-      (meal) => meal.id === item.id
-    );
+    const mealToAdjustQuantityOf = updatedItems.find((meal) => meal.id === id);
 
     if (mealToAdjustQuantityOf.quantity === 1) {
-      updatedItems = updatedItems.filter((meal) => meal.id !== item.id);
+      updatedItems = updatedItems.filter((meal) => meal.id !== id);
     } else {
       mealToAdjustQuantityOf.quantity--;
     }

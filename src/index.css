@@ -90,7 +90,6 @@ h1 {
 
 .meal-item-description {
   margin: 1rem;
-  min-height: 5rem
 }
 
 .meal-item-price {
@@ -183,6 +182,10 @@ h1 {
   margin: 0.5rem 0;
   display: flex;
   flex-direction: column;
+
+  label {
+    text-transform: capitalize;
+  }
 }
 
 .control label {

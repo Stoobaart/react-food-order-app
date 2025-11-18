@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useState } from "react";
-import { CartContext } from "../Store/cart-context";
+import { CartContext } from "../Store/CartContext";
 import Checkout from "./Checkout";
 
 const Cart = ({ onClose }) => {
@@ -16,8 +16,8 @@ const Cart = ({ onClose }) => {
     addItemToCart(item);
   }
 
-  function onSubtractItem(item) {
-    subtractItemFromCart(item);
+  function onSubtractItem(id) {
+    subtractItemFromCart(id);
   }
 
   return (
@@ -36,7 +36,7 @@ const Cart = ({ onClose }) => {
                   {item.name} - {item.quantity} x {item.price}
                 </p>
                 <div className="cart-item-actions">
-                  <button onClick={() => onSubtractItem(item)}>-</button>
+                  <button onClick={() => onSubtractItem(item.id)}>-</button>
                   {item.quantity}
                   <button onClick={() => onAddItem(item)}>+</button>
                 </div>
